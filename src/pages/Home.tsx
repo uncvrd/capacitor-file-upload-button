@@ -2,6 +2,7 @@ import { IonContent, IonHeader, IonModal, IonPage, IonTitle, IonToolbar, IonButt
 import ExploreContainer from '../components/ExploreContainer';
 import './Home.css';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { Clipboard } from '@capacitor/clipboard';
 import React, { useRef, useState } from 'react';
 
 const Home: React.FC = () => {
@@ -24,6 +25,12 @@ const Home: React.FC = () => {
     } catch (error) { }
   };
 
+  const onCopy = async () => {
+    await Clipboard.write({
+      string: 'test!'
+    })
+  }
+
   return (
     <>
       <IonPage ref={pageRef}>
@@ -40,6 +47,7 @@ const Home: React.FC = () => {
           </IonHeader>
           <ExploreContainer />
           <IonButton onClick={() => setShowModal(true)}>Open Modal</IonButton>
+          <IonButton onClick={onCopy}>Copy To Clipboard</IonButton>
         </IonContent>
       </IonPage>
       <IonModal isOpen={showModal} presentingElement={pageRef.current}>
